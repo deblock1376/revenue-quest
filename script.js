@@ -266,7 +266,6 @@ const renderScreen = () => {
                     <p style="margin-bottom: 1rem;"><strong>🛡️ Your Squad:</strong> Joined by fellow heroes like ${content.victory.squads.join(', ')}.</p>
                     <p style="margin-bottom: 1rem;"><strong>💎 The Loot:</strong> You’ll help create ${loot}</p>
                     <p style="color: var(--gold); border-top: 1px solid rgba(255,255,255,0.1); pt-1rem; margin-top: 1rem; padding-top: 1rem;">
-                        <strong>📜 The Commitment:</strong> By entering the Lab, you agree to 1:1 support, radical transparency, and High-Maturity experiments.
                     </p>
                 </div>
                 
