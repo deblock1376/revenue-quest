@@ -22,20 +22,20 @@
 body {
     background: radial-gradient(circle at top left, #1E1B4B, #0F172A);
     color: var(--text-white);
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-y: auto;
-    padding: 2rem 0;
+    overflow: hidden;
+    padding: 1rem;
 }
 
 .game-container {
     width: 100%;
     max-width: 800px;
-    min-height: 600px;
-    margin: 2rem;
-    padding: 3rem;
+    height: auto;
+    max-height: min(800px, 95vh);
+    padding: 2rem;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -44,6 +44,7 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 2rem;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
 }
 
 /* Animations */
@@ -86,8 +87,8 @@ body {
 
 h1 {
     font-family: 'Outfit', sans-serif;
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
+    font-size: clamp(2rem, 5vh, 3rem);
+    margin-bottom: 1rem;
     background: linear-gradient(to right, #6366F1, #F59E0B);
     -webkit-background-clip: text;
     background-clip: text;
@@ -95,11 +96,11 @@ h1 {
 }
 
 .narrative {
-    font-size: 1.25rem;
-    line-height: 1.6;
+    font-size: clamp(1rem, 2vh, 1.25rem);
+    line-height: 1.5;
     color: var(--text-muted);
     max-width: 600px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     background: linear-gradient(to right, #6366F1, #F59E0B);
     -webkit-background-clip: text;
     background-clip: text;
@@ -182,13 +183,13 @@ h1 {
 /* Side Scroller Styles */
 .game-area {
     width: 100%;
-    height: 300px;
+    height: clamp(200px, 30vh, 300px);
     background: linear-gradient(to bottom, #1e293b, #0f172a);
     border: 2px solid var(--primary);
     border-radius: 1rem;
     position: relative;
     overflow: hidden;
-    margin: 2rem 0;
+    margin: 1.5rem 0;
 }
 
 #hero {
@@ -395,12 +396,12 @@ h1 {
     border: 4px solid var(--emerald);
     box-shadow: 0 0 60px var(--emerald);
     border-radius: 3rem;
-    padding: 4rem;
+    padding: 2rem 3rem;
     position: relative;
     overflow: hidden;
     text-align: center;
     color: white;
-    min-height: 500px;
+    min-height: auto;
 }
 
 .island-bg {
@@ -532,12 +533,12 @@ h1 {
 
 .island-title {
     font-family: 'Outfit', sans-serif;
-    font-size: 4rem;
+    font-size: clamp(2.5rem, 8vh, 4rem);
     background: linear-gradient(to right, var(--emerald), #34d399, var(--gold));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     z-index: 1;
     position: relative;
 }
