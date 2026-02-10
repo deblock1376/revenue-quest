@@ -1,0 +1,543 @@
+:root {
+    --primary: #4F46E5;
+    --primary-glow: rgba(79, 70, 229, 0.4);
+    --gold: #F59E0B;
+    --gold-glow: rgba(245, 158, 11, 0.3);
+    --emerald: #10B981;
+    --ruby: #EF4444;
+    --bg-dark: #0F172A;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --text-white: #F8FAFC;
+    --text-muted: #94A3B8;
+    --transition-standard: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at top left, #1E1B4B, #0F172A);
+    color: var(--text-white);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    padding: 2rem 0;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 800px;
+    min-height: 600px;
+    margin: 2rem;
+    padding: 3rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glowPulse {
+    0% {
+        box-shadow: 0 0 5px var(--primary-glow);
+    }
+
+    50% {
+        box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    100% {
+        box-shadow: 0 0 5px var(--primary-glow);
+    }
+}
+
+/* Screen Styles */
+.screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to right, #6366F1, #F59E0B);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.narrative {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin-bottom: 2rem;
+    background: linear-gradient(to right, #6366F1, #F59E0B);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.action-btn {
+    background: linear-gradient(135deg, var(--primary), #6366F1);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: var(--transition-standard);
+    box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.39);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    animation: glowPulse 3s infinite ease-in-out;
+}
+
+.action-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px var(--primary-glow);
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.option-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: var(--transition-standard);
+    text-align: left;
+}
+
+.option-card:hover {
+    border-color: var(--primary);
+    background: rgba(79, 70, 229, 0.1);
+    transform: translateY(-5px);
+}
+
+.option-card h3 {
+    margin-bottom: 0.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+}
+
+.option-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.battle-container {
+    background: rgba(239, 68, 68, 0.05);
+    border: 2px solid var(--ruby);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    margin-top: 1rem;
+}
+
+.victory-card {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 1), rgba(15, 23, 42, 1));
+    border: 2px solid var(--gold);
+    padding: 3rem;
+    border-radius: 2rem;
+    box-shadow: 0 0 30px var(--gold-glow);
+}
+
+/* Side Scroller Styles */
+.game-area {
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(to bottom, #1e293b, #0f172a);
+    border: 2px solid var(--primary);
+    border-radius: 1rem;
+    position: relative;
+    overflow: hidden;
+    margin: 2rem 0;
+}
+
+#hero {
+    width: 40px;
+    height: 40px;
+    background: var(--gold);
+    position: absolute;
+    bottom: 0;
+    left: 50px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px var(--gold-glow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.obstacle {
+    width: 30px;
+    height: 30px;
+    background: var(--ruby);
+    position: absolute;
+    bottom: 0;
+    right: -50px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+.collectible {
+    width: 30px;
+    height: 30px;
+    background: var(--emerald);
+    position: absolute;
+    bottom: 80px;
+    /* Spawn in the air to encourage jumping or being in path */
+    right: -50px;
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--emerald);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    z-index: 5;
+}
+
+.ground {
+    width: 100%;
+    height: 4px;
+    background: var(--emerald);
+    position: absolute;
+    bottom: 0;
+}
+
+.jump {
+    animation: jump 0.5s linear;
+}
+
+@keyframes jump {
+    0% {
+        bottom: 0;
+    }
+
+    30% {
+        bottom: var(--jump-height, 100px);
+    }
+
+    70% {
+        bottom: var(--jump-height, 100px);
+    }
+
+    100% {
+        bottom: 0;
+    }
+}
+
+.slide {
+    animation: slide 2s linear;
+}
+
+@keyframes slide {
+    from {
+        right: -50px;
+    }
+
+    to {
+        right: 100%;
+    }
+}
+
+.dragon-screen {
+    background: radial-gradient(circle at center, #450a0a, #000);
+    border: 4px solid var(--ruby);
+    box-shadow: 0 0 50px var(--ruby);
+    border-radius: 2rem;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.fire-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(239, 68, 68, 0.2), transparent);
+    z-index: 0;
+}
+
+.flywheel-container {
+    position: relative;
+    width: 170px;
+    height: 170px;
+    margin: 1.5rem 0 2.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flywheel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    /* Use conic gradient for segments with hard stops and slight transparency for empty slots */
+    background: conic-gradient(var(--gold) 0deg var(--p1, 0deg),
+            rgba(255, 255, 255, 0.05) var(--p1, 0deg) 118deg,
+            transparent 118deg 122deg,
+            var(--gold) 122deg var(--p2, 122deg),
+            rgba(255, 255, 255, 0.05) var(--p2, 122deg) 238deg,
+            transparent 238deg 242deg,
+            var(--gold) 242deg var(--p3, 242deg),
+            rgba(255, 255, 255, 0.05) var(--p3, 242deg) 358deg,
+            transparent 358deg 360deg);
+    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.flywheel.spinning {
+    animation: spin 3s linear infinite;
+    box-shadow: 0 0 50px var(--gold-glow);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.flywheel-inner {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background: var(--bg-dark);
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    z-index: 2;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.experiment-history {
+    margin-bottom: 2rem;
+    text-align: left;
+    width: 100%;
+    max-width: 600px;
+}
+
+.experiment-history h4 {
+    color: var(--gold);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+}
+
+.history-item {
+    background: rgba(79, 70, 229, 0.1);
+    border-left: 4px solid var(--primary);
+    padding: 1rem 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: var(--text-white);
+    animation: fadeIn 0.4s ease-out;
+    border-radius: 0 0.5rem 0.5rem 0;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.island-screen {
+    background: radial-gradient(circle at center, #065f46, #064e3b, #022c22);
+    border: 4px solid var(--emerald);
+    box-shadow: 0 0 60px var(--emerald);
+    border-radius: 3rem;
+    padding: 4rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+    min-height: 500px;
+}
+
+.island-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+    z-index: 0;
+}
+
+.palm-container {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin: 2rem 0;
+    font-size: 4rem;
+    z-index: 1;
+    position: relative;
+}
+
+.palm {
+    animation: sway 4s infinite ease-in-out;
+    transform-origin: bottom center;
+}
+
+.palm:nth-child(2) {
+    animation-delay: -2s;
+}
+
+@keyframes sway {
+
+    0%,
+    100% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
+/* Strategic Flagpole Styles */
+.flagpole {
+    position: absolute;
+    width: 10px;
+    height: 180px;
+    background: linear-gradient(to right, #94a3b8, #475569);
+    bottom: 0;
+    right: -100px;
+    z-index: 5;
+    border-radius: 5px 5px 0 0;
+}
+
+.flag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 60px;
+    height: 40px;
+    background: var(--emerald);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.7rem;
+    clip-path: polygon(0 0, 100% 0, 85% 50%, 100% 100%, 0 100%);
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+}
+
+.hero-slide {
+    animation: slideDown 1.5s ease-in-out forwards;
+}
+
+@keyframes slideDown {
+    0% {
+        transform: translateY(0);
+    }
+
+    20% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(140px);
+    }
+}
+
+.flag-raise {
+    animation: raiseFlag 1s ease-out forwards;
+}
+
+@keyframes raiseFlag {
+    from {
+        transform: translateY(120px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.victory-sparkle {
+    position: absolute;
+    pointer-events: none;
+    animation: sparkle 0.8s ease-out forwards;
+    z-index: 10;
+}
+
+@keyframes sparkle {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+.island-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 4rem;
+    background: linear-gradient(to right, var(--emerald), #34d399, var(--gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    z-index: 1;
+    position: relative;
+}
