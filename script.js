@@ -668,7 +668,7 @@ const startSideScroller = () => {
 };
 
 window.complete = () => {
-    alert(`Huzzah! You've secured ${gameState.score} supporters. Your commitment to the 2026 Solutions Lab has been sealed!`);
+    window.open('https://3.basecamp.com/5410030/buckets/42083646/messages/9565526109', '_blank');
 };
 
 document.addEventListener('DOMContentLoaded', () => {
